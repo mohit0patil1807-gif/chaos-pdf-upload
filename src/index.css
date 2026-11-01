@@ -1,0 +1,343 @@
+/* ==========================================================================
+   Department of Document Affairs // ANTivirus (1997)
+   Authentic Windows 95 Retro Desktop + Ant Defense Arena System
+   ========================================================================== */
+
+:root {
+  --win-desktop: #008080;
+  --win-gray: #c0c0c0;
+  --win-light: #ffffff;
+  --win-dark: #808080;
+  --win-black: #000000;
+  --win-navy: #000080;
+  --win-navy-light: #1084d0;
+  --win-inactive-title: #808080;
+  --win-inactive-title-light: #b5b5b5;
+  --win-text: #000000;
+  --win-field-bg: #ffffff;
+  --stamp-red: #b91c1c;
+  --stamp-blue: #1d4ed8;
+  --stamp-green: #15803d;
+  
+  --font-retro-ui: 'MS Sans Serif', Tahoma, 'Segoe UI', Arial, sans-serif;
+  --font-retro-mono: 'Courier Prime', 'Courier New', monospace;
+  --font-pixel: 'VT323', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  background-color: var(--win-desktop);
+  color: var(--win-text);
+  font-family: var(--font-retro-ui);
+  font-size: 12px;
+  line-height: 1.35;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  /* Classic 16-bit dither pattern */
+  background-image: radial-gradient(rgba(0, 0, 0, 0.15) 15%, transparent 16%);
+  background-size: 4px 4px;
+}
+
+/* CRT Scanline Filter Toggle */
+body.crt-mode::after {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.28) 50%);
+  background-size: 100% 3px;
+  z-index: 99999;
+  pointer-events: none;
+  opacity: 0.65;
+}
+
+/* ==========================================================================
+   Windows 95 3D Bevel Utilities
+   ========================================================================== */
+
+/* Raised / Outset Window or Panel */
+.win95-outset {
+  background-color: var(--win-gray);
+  border-top: 2px solid var(--win-light);
+  border-left: 2px solid var(--win-light);
+  border-right: 2px solid var(--win-black);
+  border-bottom: 2px solid var(--win-black);
+  box-shadow: inset 1px 1px 0px #dfdfdf, inset -1px -1px 0px var(--win-dark);
+}
+
+/* Depressed / Inset Field or Canvas */
+.win95-inset {
+  background-color: var(--win-field-bg);
+  border-top: 2px solid var(--win-dark);
+  border-left: 2px solid var(--win-dark);
+  border-right: 2px solid var(--win-light);
+  border-bottom: 2px solid var(--win-light);
+  box-shadow: inset 1px 1px 0px var(--win-black), inset -1px -1px 0px #dfdfdf;
+}
+
+/* Depressed Gray Groove (Status bar cells, counter floors) */
+.win95-inset-gray {
+  background-color: var(--win-gray);
+  border-top: 2px solid var(--win-dark);
+  border-left: 2px solid var(--win-dark);
+  border-right: 2px solid var(--win-light);
+  border-bottom: 2px solid var(--win-light);
+  box-shadow: inset 1px 1px 0px var(--win-black);
+}
+
+/* Windows 95 Button */
+.win95-btn {
+  background-color: var(--win-gray);
+  color: var(--win-text);
+  font-family: var(--font-retro-ui);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-top: 2px solid var(--win-light);
+  border-left: 2px solid var(--win-light);
+  border-right: 2px solid var(--win-black);
+  border-bottom: 2px solid var(--win-black);
+  box-shadow: inset 1px 1px 0px #dfdfdf, inset -1px -1px 0px var(--win-dark);
+  outline: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 24px;
+}
+
+.win95-btn:hover {
+  background-color: #d1d5db;
+}
+
+.win95-btn:active, .win95-btn.pressed {
+  border-top: 2px solid var(--win-black);
+  border-left: 2px solid var(--win-black);
+  border-right: 2px solid var(--win-light);
+  border-bottom: 2px solid var(--win-light);
+  box-shadow: inset 1px 1px 0px var(--win-dark);
+  padding: 5px 11px 3px 13px;
+}
+
+.win95-btn:disabled {
+  color: var(--win-dark);
+  text-shadow: 1px 1px 0 var(--win-light);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Titlebars */
+.win95-titlebar {
+  background: linear-gradient(90deg, var(--win-navy) 0%, var(--win-navy-light) 100%);
+  color: var(--win-light);
+  padding: 3px 4px 3px 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  font-family: var(--font-retro-ui);
+}
+
+.win95-titlebar-inactive {
+  background: linear-gradient(90deg, var(--win-inactive-title) 0%, var(--win-inactive-title-light) 100%);
+  color: #dfdfdf;
+}
+
+.win95-titlebar-btn {
+  width: 16px;
+  height: 14px;
+  padding: 0;
+  background-color: var(--win-gray);
+  border-top: 1px solid var(--win-light);
+  border-left: 1px solid var(--win-light);
+  border-right: 1px solid var(--win-black);
+  border-bottom: 1px solid var(--win-black);
+  box-shadow: inset 1px 1px 0px #dfdfdf, inset -1px -1px 0px var(--win-dark);
+  font-size: 9px;
+  font-weight: 900;
+  line-height: 11px;
+  text-align: center;
+  color: var(--win-black);
+  cursor: pointer;
+  margin-left: 2px;
+}
+
+.win95-titlebar-btn:active {
+  border-top: 1px solid var(--win-black);
+  border-left: 1px solid var(--win-black);
+  border-right: 1px solid var(--win-light);
+  border-bottom: 1px solid var(--win-light);
+}
+
+/* Rubber Stamps */
+.rubber-stamp {
+  font-family: var(--font-retro-mono);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.stamp-red {
+  color: var(--stamp-red);
+  border: 3px double var(--stamp-red);
+  transform: rotate(-5deg);
+  background-color: rgba(185, 28, 28, 0.08);
+}
+
+.stamp-blue {
+  color: var(--stamp-blue);
+  border: 3px double var(--stamp-blue);
+  transform: rotate(3deg);
+  background-color: rgba(29, 78, 216, 0.08);
+}
+
+.stamp-green {
+  color: var(--stamp-green);
+  border: 3px double var(--stamp-green);
+  transform: rotate(-2deg);
+  background-color: rgba(21, 128, 61, 0.08);
+}
+
+/* Hazard Stripes */
+.hazard-stripe {
+  background: repeating-linear-gradient(
+    -45deg,
+    #f59e0b,
+    #f59e0b 12px,
+    #111827 12px,
+    #111827 24px
+  );
+}
+
+/* Active Target Pulse */
+@keyframes targetPulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0, 0, 128, 0.4);
+    border-color: var(--win-navy);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 0, 128, 0.8), inset 0 0 10px rgba(0, 0, 128, 0.2);
+    border-color: #1084d0;
+  }
+}
+
+.active-target-pulse {
+  animation: targetPulse 1.4s infinite;
+}
+
+/* Circular Arming Ring for Dwell 1.2s */
+.arming-ring-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.arming-ring-svg {
+  transform: rotate(-90deg);
+}
+
+.arming-ring-circle-bg {
+  fill: none;
+  stroke: #cbd5e1;
+  stroke-width: 3.5;
+}
+
+.arming-ring-circle-fill {
+  fill: none;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.08s linear, stroke 0.2s ease;
+}
+
+/* Ant Squish Animation */
+@keyframes squishPop {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.6) rotate(15deg); opacity: 0.8; }
+  100% { transform: scale(0.2); opacity: 0; }
+}
+
+.ant-squished {
+  animation: squishPop 0.35s ease-out forwards;
+  pointer-events: none;
+}
+
+/* Breach Alarm Flash */
+@keyframes breachAlarm {
+  0%, 100% { background-color: rgba(239, 68, 68, 0.1); }
+  50% { background-color: rgba(239, 68, 68, 0.35); }
+}
+
+.breach-alarm {
+  animation: breachAlarm 0.4s infinite;
+}
+
+/* Windows 95 Progress Bar */
+.win95-progress-track {
+  height: 20px;
+  background-color: var(--win-field-bg);
+  border-top: 2px solid var(--win-dark);
+  border-left: 2px solid var(--win-dark);
+  border-right: 2px solid var(--win-light);
+  border-bottom: 2px solid var(--win-light);
+  box-shadow: inset 1px 1px 0px var(--win-black);
+  padding: 2px;
+  overflow: hidden;
+  display: flex;
+  gap: 2px;
+}
+
+.win95-progress-chunk {
+  width: 10px;
+  height: 100%;
+  background: var(--win-navy);
+  flex-shrink: 0;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+  background-color: var(--win-gray);
+}
+
+::-webkit-scrollbar-track {
+  background: repeating-linear-gradient(
+    45deg,
+    #dfdfdf,
+    #dfdfdf 2px,
+    var(--win-gray) 2px,
+    var(--win-gray) 4px
+  );
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--win-gray);
+  border-top: 2px solid var(--win-light);
+  border-left: 2px solid var(--win-light);
+  border-right: 2px solid var(--win-black);
+  border-bottom: 2px solid var(--win-black);
+}
+
+::-webkit-scrollbar-button {
+  background-color: var(--win-gray);
+  border-top: 1px solid var(--win-light);
+  border-left: 1px solid var(--win-light);
+  border-right: 1px solid var(--win-black);
+  border-bottom: 1px solid var(--win-black);
+  width: 16px;
+  height: 16px;
+}
